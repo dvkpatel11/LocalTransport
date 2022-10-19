@@ -1,0 +1,15 @@
+{% extends "buses/layout.html" %} {% block body %}
+
+<h1>Buses</h1>
+
+<ul>
+    {% for bus in buses %}
+    <li>
+        <!-- Since the bus route takes the bus_id as a parameter to its URL, we have to specify the id of the bus in question here to get the link to the URL of a particular bus_id -->
+        <a href="{% url 'bus' bus.id %}">Bus {{bus.id}} : {{bus.origin}} to {{bus.destination}}</a> </li>
+    {% empty %}
+    <li>No buses.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
