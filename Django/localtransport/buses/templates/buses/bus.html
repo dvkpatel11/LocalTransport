@@ -1,0 +1,32 @@
+{% extends "buses/layout.html" %} {% block body %}
+<h1>Bus {{ bus.id }}</h1>
+<ul>
+    <li> Origin : {{ bus.origin }} </li>
+    <li> Destination : {{ bus.destination }} </li>
+    <li> Duration : {{ bus.duration }} </li>
+</ul>
+
+<h2>Passengers</h2>
+<ul>
+    {% for passenger in passengers %}
+    <li>{{ passenger }}</li>
+    {% empty %}
+    <li>No passengers.</li>
+    {% endfor %}
+</ul>
+
+<h2>Add Passenger</h2>
+
+<form action="{% url 'book' bus.id %}" method="post">
+    {% csrf_token %}
+    <!-- The select tag allows for the creation of a dropdown list -->
+    <select name="passenger">
+        {% for passenger in non_passengers %}
+        <!-- 'value' allows one to specify what variable value gets passed on when a submission is made via this select -->
+        <option value="{{ passenger.id }}">{{ passenger }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit">
+</form>
+
+<a href="{% url 'index' %}">Back to bus list</a> {% endblock %}
